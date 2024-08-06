@@ -1,1 +1,88 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Text</title>
+    <style>
+        body {
+            background-color: #333333;
+            color: #00FF00;
+            font-family: monospace;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align to top */
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            padding-top: 50px; /* Reduced padding at the top */
+        }
+        .binary-container {
+            width: 25%; /* Adjusted for better visibility */
+            text-align: left;
+            word-wrap: break-word;
+            white-space: pre-wrap; /* Preserve white space */
+            line-height: 1.2em;
+        }
+        .title {
+            font-size: 2em; /* Twice the size of the binary text */
+            margin: 0;
+            padding: 0;
+            line-height: 1.2em; /* Same height as binary text */
+            color: #00FF00; /* Ensure the title has the same green color */
+        }
+        .links {
+            text-align: left; /* Justify links to the left */
+            margin: 0;
+            padding: 0;
+            white-space: nowrap; /* Prevent line breaks */
+        }
+        a {
+            color: #00FF00; /* Same green color */
+            text-decoration: none; /* No underline */
+            margin: 0; /* Remove any default margin */
+            padding: 0; /* Remove any default padding */
+        }
+        .binary-text {
+            margin-top: 1.2em; /* Add a blank line height equivalent margin */
+        }
+    </style>
+</head>
+<body>
+    <div class="binary-container">
+        <div class="title">CONTUIT</div>
+        <div class="links"><a href="page1.html">00000000</a> <a href="page2.html">00000001</a> <a href="page3.html">00000010</a> <a href="page4.html">00000011</a></div>
+        <div id="binary-text" class="binary-text"></div>
+    </div>
+    <script>
+        // Function to generate binary data with increasing spaces towards the end
+        function generateBinaryData(length) {
+            const binaryData = [];
+            for (let i = 0; i < length; i++) {
+                if (i < length * 0.2) {
+                    binaryData.push(Math.random() > 0.5 ? '1' : '0');
+                } else {
+                    const spaceChance = 0.05 + (0.95 - 0.05) * ((i - length * 0.2) / (length * 0.8));
+                    if (Math.random() > spaceChance) {
+                        if (Math.random() < 0.01) {
+                            binaryData.push('C');
+                        } else {
+                            binaryData.push(Math.random() > 0.5 ? '1' : '0');
+                        }
+                    } else {
+                        binaryData.push(' ');
+                    }
+                }
+            }
+            return binaryData.join('');
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const binaryContainer = document.getElementById('binary-text');
+            const binaryData = generateBinaryData(3000); // Adjusted length to 3000
+            binaryContainer.textContent = binaryData;
+        });
+    </script>
+</body>
+</html>
